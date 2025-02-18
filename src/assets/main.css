@@ -1,0 +1,16 @@
+@import './base.css';
+
+body {
+  background-image: url('./images/default_background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#app {
+  height: 100svh;
+}
+
+form ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  height: 0;
+}
