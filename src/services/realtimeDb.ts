@@ -10,9 +10,7 @@ function listenForChanges(callbackfn?: (value: Array<Activity>) => void) {
   const starCountRef = ref(db, 'activities')
   onValue(starCountRef, (snapshot) => {
     const data = snapshot.val()
-    if (data) {
-      callbackfn?.(Object.values(data))
-    }
+    callbackfn?.(Object.values(data ?? {}))
   })
 }
 
@@ -20,4 +18,16 @@ async function deleteActivity(id: string) {
   await remove(ref(db, 'activities/' + id))
 }
 
-export { putNewActivity, listenForChanges, deleteActivity }
+async function putBudget(budget: number) {
+  await set(ref(db, 'budget'), budget)
+}
+
+function listenForBudgetChanges(callbackfn?: (value: number) => void) {
+  const budgetRef = ref(db, 'budget')
+  onValue(budgetRef, (snapshot) => {
+    const data = snapshot.val()
+    callbackfn?.(data == null ? 0 : data)
+  })
+}
+
+export { putNewActivity, listenForChanges, deleteActivity, putBudget, listenForBudgetChanges }
